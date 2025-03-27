@@ -1,0 +1,2 @@
+API_ID = 25542343
+API_HASH = "7a1eaa42fbce44a3afcf8b20449653d4"
