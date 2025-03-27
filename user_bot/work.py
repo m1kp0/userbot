@@ -60,5 +60,10 @@ async def rcc(event): # random chance command
 async def ryonc(event): # random yes or no command
     await cmf.random_yes_or_no_command(event)
 
-# сделать это через интерфейс (консоль)
-run.start_bot()
+@m1kp.on(evs.NewMessage(outgoing=True, pattern=r"\.автофарм"))
+async def iac(event): # iris autofarm command
+    await cmf.iris_autofarm_command(event)
+
+@m1kp.on(evs.NewMessage(outgoing=True, pattern=r"\.перевод"))
+async def gtc(event): # google translate command
+    await cmf.google_translate_command(event)
