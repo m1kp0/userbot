@@ -189,17 +189,17 @@ async def iris_autofarm_command(msg):
         try:
             if text[1] == "вкл": enabled = True
             else: enabled = False
-            if enabled: await edit_msg(msg, "Автофарм ириса включен", 0)
+            if enabled: await edit_msg(msg, "Автофарм ириса включен: фарм раз в 10 часов", 0)
             else: await edit_msg(msg, "Автофарм ириса выключен", 0)
             while enabled:
                 await send_msg(cl.m1kp, msg.chat_id, "Ферма")
-                await sleep(14460)
+                await sleep(36000) # 10 часов
         except ValueError:
             await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.автофарм (вкл/выкл)]")
         except Exception as e:
             await error(msg, f"Что-то пошло не так, ошибка: {e}")
 
-async def google_translate_command(msg): # тут есть небольшой баг, бот пока что не может перевести ответы не на русский, а на другйо язык. надо задавать язык в самом ответе, либо копировать его
+async def google_translate_command(msg): # тут есть небольшой баг, бот пока что не может перевести ответы на другой язык. надо задавать язык в самом ответе, либо копировать его
     text1 = msg.text.split(" ", maxsplit=1)
     if text1[0] == ".перевод":
         reply = await msg.get_reply_message()
