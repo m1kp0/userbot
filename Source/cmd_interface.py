@@ -4,7 +4,6 @@ from work import *
 from client.client import *
 from client.config import *
 import run_bot as rb
-import stop_bot as sb
 import os
 
 def print_start():
@@ -38,14 +37,7 @@ def select_settings():
         print("! Действие в разработке, скоро оно будет добавлено")
         print(Fore.WHITE)
         select_settings()
-    elif cmd == ("4" or "Остановить бота" or "остановить бота"):
-        print(Fore.WHITE)
-        print("Остановка бота..")
-        sb.stop_bot()
-        print("Бот остановлен")
-        print(Fore.WHITE)
-        select_settings()
-    elif cmd == ("5" or "Очистить" or "очистить"):
+    elif cmd == ("4" or "Очистить" or "очистить"):
         os.system("cls")
         select_settings()
     else:
