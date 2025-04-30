@@ -5,7 +5,9 @@ from g4f.client import Client
 from asyncio import sleep
 from telethon import *
 from googletrans import Translator
+from bs4 import BeautifulSoup
 from .client import client as cl
+from .parser import parse
 
 # Переменные
 generator = Client()
@@ -309,7 +311,7 @@ async def quote_command(msg):
         await delete_msg(msg)
         await send_msg(cl.m1kp, msg.chat_id, res)
 
-
+"""
 async def generate_img_command(msg):
     text = msg.text.split(" ", maxsplit=1)
     reply = await get_reply(msg)
@@ -330,7 +332,11 @@ async def generate_img_command(msg):
             await cl.m1kp.send_file(msg.chat_id, img, caption=f'Сгенерировал картинку по запросу: {prompt_def_lang}\nURL: {url}')
     except:
         await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.ген (текст)]")
+"""
 
 
-async def send_bot_info_command():
-    ...
+async def random_joke_command(msg):
+    await edit_msg(msg, "Ищу анекдот..")
+    text = parse()
+    random.shuffle(text)
+    await edit_msg(msg, f"Анекдот:\n{text[0]}")
