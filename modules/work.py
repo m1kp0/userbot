@@ -39,14 +39,10 @@ cmds = {
 }
 
 # Функция запуска функций (команд)
-
-
 async def run_function(func, msg):
     await func(msg)
 
 # Реакция на команды
-
-
 @m1kp.on(evs.NewMessage(outgoing=True))
 async def command_function(event):
     text = event.text.split(" ")
