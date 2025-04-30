@@ -7,7 +7,7 @@ from telethon import *
 from googletrans import Translator
 from bs4 import BeautifulSoup
 from .client import client as cl
-from .parser import parse
+from .parser import parse_joke, parse_phrase
 
 # Переменные
 generator = Client()
@@ -337,6 +337,13 @@ async def generate_img_command(msg):
 
 async def random_joke_command(msg):
     await edit_msg(msg, "Ищу анекдот..")
-    text = parse()
+    text = parse_joke()
     random.shuffle(text)
     await edit_msg(msg, f"Анекдот:\n{text[0]}")
+
+
+async def random_phrase_command(msg):
+    await edit_msg(msg, "Ищу фразу..")
+    text = parse_phrase()
+    random.shuffle(text)
+    await edit_msg(msg, f"Фраза: \n{text[0]}")
