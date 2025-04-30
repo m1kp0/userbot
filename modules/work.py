@@ -25,6 +25,7 @@ priv_cmds = {
     ".число": random_int_command,
     ".символ": random_char_command,
     ".анекдот": random_joke_command,
+    ".фраза": random_phrase_command,
 
     ".хеш": random_hash_command,
     ".шифр": random_cezar_code_command,
