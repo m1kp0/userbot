@@ -3,7 +3,7 @@ from .client import events as evs
 from .client import m1kp
 
 # Команды
-cmds = {
+priv_cmds = {
     ".изменить": edit_msg_command,
     ".-": delete_msg_command,
 
@@ -24,6 +24,7 @@ cmds = {
     ".шанс": random_chance_command,
     ".число": random_int_command,
     ".символ": random_char_command,
+    ".анекдот": random_joke_command,
 
     ".хеш": random_hash_command,
     ".шифр": random_cezar_code_command,
@@ -33,17 +34,18 @@ cmds = {
     ".время": time_now_command,
 
     ".автофарм": iris_autofarm_command,
-    ".ген": generate_img_command,
-
-    ".ботинфо": send_bot_info_command
+    # ".ген": generate_img_command
 }
 
-# Функция запуска функций (команд)
+
 async def run_function(func, msg):
     await func(msg)
 
-# Реакция на команды
+
 @m1kp.on(evs.NewMessage(outgoing=True))
 async def command_function(event):
     text = event.text.split(" ")
-    await run_function(cmds[text[0]], event)
+    try:
+        await run_function(priv_cmds[text[0]], event)
+    except:
+        pass
