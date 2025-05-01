@@ -339,9 +339,7 @@ async def break_text_command(msg):
             i // 2 + 1)) * c.isalnum() for c in word) for i, word in enumerate(words))
         real_zalgo = ' '.join(''.join(c + ''.join(random.choice(marks) for _ in range(
             i // 2 + 1)) * c.isalnum() for c in word) for i, word in enumerate(bad_zalgo))
-        broken_text = ' '.join(''.join(c + ''.join(random.choice(marks) for _ in range(
-            i // 2 + 1)) * c.isalnum() for c in word) for i, word in enumerate(real_zalgo))
 
-        await edit_msg(msg, f"Сломал {to_zalgo}:\n{broken_text}")
+        await edit_msg(msg, f"Залго {to_zalgo}:\n{real_zalgo}")
     except:
         await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.сломать (текст)]")
