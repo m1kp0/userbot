@@ -1,16 +1,12 @@
 import datetime
-import requests
 import random
-from g4f.client import Client
 from asyncio import sleep
 from telethon import *
 from googletrans import Translator
-from bs4 import BeautifulSoup
 from .client import client as cl
 from .parser import parse_joke, parse_phrase
 
 # Переменные
-generator = Client()
 tr = Translator()
 saved_msgs = []
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890,./;[}{]*-+<>!@#$%^&*()_№:?=|"
@@ -22,6 +18,10 @@ async def edit_msg(msg, text):
 
 async def send_msg(bot, chat_id, text):
     await bot.send_message(chat_id, text)
+
+
+async def send_file(bot, chat_id, file):
+    await bot.send_file(chat_id, file)
 
 
 async def delete_msg(msg):
@@ -311,34 +311,13 @@ async def quote_command(msg):
         await delete_msg(msg)
         await send_msg(cl.m1kp, msg.chat_id, res)
 
-"""
-async def generate_img_command(msg):
-    text = msg.text.split(" ", maxsplit=1)
-    reply = await get_reply(msg)
-    try:
-        prompt_def_lang = reply if msg.is_reply else text[1]
-        await edit_msg(msg, f"Генерирую {prompt_def_lang}..")
-        prompt_en = tr.translate(prompt_def_lang, dest="en").text
-        await edit_msg(msg, f"Генерирую {prompt_def_lang} ({prompt_en})..")
-        res = await generator.images.generate(
-            model="flux",
-            prompt=prompt_def_lang,
-            response_format="url"
-        )
-        url = res.data[0].url
-        data = requests.get(url).content
-        with open("generated_img.jpg", "wb") as file:
-            img = file.write(data)
-            await cl.m1kp.send_file(msg.chat_id, img, caption=f'Сгенерировал картинку по запросу: {prompt_def_lang}\nURL: {url}')
-    except:
-        await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.ген (текст)]")
-"""
-
 
 async def random_joke_command(msg):
     await edit_msg(msg, "Ищу анекдот..")
     text = parse_joke()
     random.shuffle(text)
+    if "Оцените ваши впечатления от сайта" in text:
+        random.shuffle(text)
     await edit_msg(msg, f"Анекдот:\n{text[0]}")
 
 
