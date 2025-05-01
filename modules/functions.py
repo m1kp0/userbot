@@ -316,8 +316,7 @@ async def random_joke_command(msg):
     await edit_msg(msg, "Ищу анекдот..")
     text = parse_joke()
     random.shuffle(text)
-    if "Оцените ваши впечатления от сайта" in text:
-        random.shuffle(text)
+
     await edit_msg(msg, f"Анекдот:\n{text[0]}")
 
 
@@ -326,3 +325,23 @@ async def random_phrase_command(msg):
     text = parse_phrase()
     random.shuffle(text)
     await edit_msg(msg, f"Фраза: \n{text[0]}")
+
+
+async def break_text_command(msg):
+    text = msg.text.split(" ", maxsplit=1)
+    reply = await get_reply(msg)
+    try:
+        await edit_msg(msg, f"Ломаю..")
+        to_zalgo = reply.text if msg.is_reply else text[1]
+        marks = list(map(chr, range(768, 879)))
+        words = to_zalgo.split()
+        bad_zalgo = ' '.join(''.join(c + ''.join(random.choice(marks) for _ in range(
+            i // 2 + 1)) * c.isalnum() for c in word) for i, word in enumerate(words))
+        real_zalgo = ' '.join(''.join(c + ''.join(random.choice(marks) for _ in range(
+            i // 2 + 1)) * c.isalnum() for c in word) for i, word in enumerate(bad_zalgo))
+        broken_text = ' '.join(''.join(c + ''.join(random.choice(marks) for _ in range(
+            i // 2 + 1)) * c.isalnum() for c in word) for i, word in enumerate(real_zalgo))
+
+        await edit_msg(msg, f"Сломал {to_zalgo}:\n{broken_text}")
+    except:
+        await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.сломать (текст)]")
