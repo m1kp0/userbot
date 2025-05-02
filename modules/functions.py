@@ -2,6 +2,7 @@ import datetime
 import random
 from asyncio import sleep
 from telethon import *
+from zalgo_text.zalgo import zalgo
 from googletrans import Translator
 from .client import client as cl
 from .parser import parse_joke, parse_phrase
@@ -331,15 +332,9 @@ async def break_text_command(msg):
     text = msg.text.split(" ", maxsplit=1)
     reply = await get_reply(msg)
     try:
-        await edit_msg(msg, f"Ломаю..")
+        await edit_msg(msg, f"Генерирую залго..")
         to_zalgo = reply.text if msg.is_reply else text[1]
-        marks = list(map(chr, range(768, 879)))
-        words = to_zalgo.split()
-        bad_zalgo = ' '.join(''.join(c + ''.join(random.choice(marks) for _ in range(
-            i // 2 + 1)) * c.isalnum() for c in word) for i, word in enumerate(words))
-        real_zalgo = ' '.join(''.join(c + ''.join(random.choice(marks) for _ in range(
-            i // 2 + 1)) * c.isalnum() for c in word) for i, word in enumerate(bad_zalgo))
-
-        await edit_msg(msg, f"Залго {to_zalgo}:\n{real_zalgo}")
+        zalgo_t = zalgo().zalgofy(to_zalgo)
+        await edit_msg(msg, f"Залго {to_zalgo}:\n{zalgo_t}")
     except:
         await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.сломать (текст)]")
