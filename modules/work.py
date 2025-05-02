@@ -30,7 +30,7 @@ priv_cmds = {
     ".хеш": random_hash_command,
     ".шифр": random_cezar_code_command,
     ".расшифр": cezar_decode_command,
-    ".сломать": break_text_command,
+    ".залго": break_text_command,
 
     ".перевод": google_translate_command,
     ".время": time_now_command,
