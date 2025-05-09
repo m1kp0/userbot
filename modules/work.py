@@ -24,6 +24,8 @@ priv_cmds = {
     ".шанс": random_chance_command,
     ".число": random_int_command,
     ".символ": random_char_command,
+
+    ".вебскрин": web_screen_command,
     ".анекдот": random_joke_command,
     ".фраза": random_phrase_command,
 
