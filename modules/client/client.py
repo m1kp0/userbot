@@ -4,7 +4,7 @@ import random
 
 api_id = int(API_ID)
 api_hash = str(API_HASH)
-session_name = str("M1KP_SESSION_YOU_CAN_DELETE_THIS_FILE")
+session_name = "M1KP_SESSION_YOU_CAN_DELETE_THIS_FILE"
 
 # Бот
 m1kp = TelegramClient(
