@@ -1,11 +1,12 @@
 import datetime
 import random
+import os
 from asyncio import sleep
 from telethon import *
 from zalgo_text.zalgo import zalgo
 from googletrans import Translator
 from .client import client as cl
-from .parser import parse_joke, parse_phrase
+from .parser import parse_joke, parse_phrase, screen
 
 # Переменные
 tr = Translator()
@@ -21,8 +22,8 @@ async def send_msg(bot, chat_id, text):
     await bot.send_message(chat_id, text)
 
 
-async def send_file(bot, chat_id, file):
-    await bot.send_file(chat_id, file)
+async def send_file(bot, chat_id, file, caption):
+    await bot.send_file(chat_id, file, caption=caption)
 
 
 async def delete_msg(msg):
@@ -337,4 +338,20 @@ async def break_text_command(msg):
         zalgo_t = zalgo().zalgofy(to_zalgo)
         await edit_msg(msg, f"Залго {to_zalgo}:\n{zalgo_t}")
     except:
-        await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.сломать (текст)]")
+        await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.сломать (текст/ответ)]")
+
+
+async def web_screen_command(msg):
+    text = msg.text.split(" ", maxsplit=1)
+    reply = await get_reply(msg)
+    try:
+        lastmsg = await msg.edit("Делаю скрин..")
+        to_screenshot = reply.text if msg.is_reply else text[1]
+        if not "https://" in to_screenshot:
+            to_screenshot = "https://" + str(to_screenshot)
+        screen(to_screenshot)
+        await cl.m1kp.send_file(msg.chat_id, "web_screen.png", caption=f"Скрин страницы {to_screenshot}")
+        await delete_msg(lastmsg)
+        os.remove("web_screen.png")
+    except:
+        await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.вебскрин (текст/ответ)]")
