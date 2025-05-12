@@ -4,12 +4,12 @@ import os
 from asyncio import sleep
 from telethon import *
 from zalgo_text.zalgo import zalgo
-from googletrans import Translator
+# from googletrans import Translator
 from .client import client as cl
 from .parser import parse_joke, parse_phrase, screen
 
 # Переменные
-tr = Translator()
+# tr = Translator()
 saved_msgs = []
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯabcdefghijklmnopqrstuvwxyzабвгдеёжзийклмнопрстуфхцчшщъыьэюя1234567890,./;[}{]*-+<>!@#$%^&*()_№:?=|"
 
@@ -248,6 +248,7 @@ async def iris_autofarm_command(msg):
         await error(msg, "Ошибка: команда не заполнена или заполнена с ошибками\n[.автофарм (вкл/выкл)]")
 
 
+"""
 # тут есть небольшой баг, бот пока что не может перевести ответы на другой язык.
 async def google_translate_command(msg):
     reply = await get_reply(msg)
@@ -272,6 +273,7 @@ async def google_translate_command(msg):
         await error(msg, "Ошибка: команда не заполнена или заполнена не правильно\n[.перевод (текст/ответ) -(язык)]")
     except Exception as e:
         await error(msg, f"Что-то пошло не так, попробуйте еще раз")
+"""
 
 
 async def silent_spam_command(msg):
